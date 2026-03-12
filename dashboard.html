@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Wallet | Tableau de bord</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="e-Wallet6.gif" alt="Logo E-Wallet">
+      </a>
+      <ul class="nav-links"></ul>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="dashboard-container">
+
+      <aside class="dashboard-sidebar">
+        <nav class="sidebar-nav">
+          <ul>
+            <li class="active">
+              <a href="#overview">
+                <i class="fas fa-home"></i>
+                <span>Vue d'ensemble</span>
+              </a>
+            </li>
+            <li>
+              <a href="#transactions">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+              </a>
+            </li>
+            <li>
+              <a href="#cards">
+                <i class="fas fa-credit-card"></i>
+                <span>Mes cartes</span>
+              </a>
+            </li>
+            <li>
+              <a href="#transfers">
+                <i class="fas fa-paper-plane"></i>
+                <span>Transferts</span>
+              </a>
+            </li>
+            <li class="separator"></li>
+            <li>
+              <a href="#support">
+                <i class="fas fa-headset"></i>
+                <span>Aide & Support</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="dashboard-content">
+
+        <section id="overview" class="dashboard-section active">
+          <div class="section-header">
+            <h2>Bonjour, <span id="greetingName">?</span> !</h2>
+            <p class="date-display" id="currentDate"></p>
+          </div>
+
+          <div class="summary-cards">
+            <div class="summary-card">
+              <div class="card-icon blue"><i class="fas fa-wallet"></i></div>
+              <div class="card-details">
+                <span class="card-label">Solde disponible</span>
+                <span class="card-value" id="availableBalance">?</span>
+              </div>
+            </div>
+            <div class="summary-card">
+              <div class="card-icon green"><i class="fas fa-arrow-up"></i></div>
+              <div class="card-details">
+                <span class="card-label">Revenus</span>
+                <span class="card-value" id="monthlyIncome">?</span>
+              </div>
+            </div>
+            <div class="summary-card">
+              <div class="card-icon red"><i class="fas fa-arrow-down"></i></div>
+              <div class="card-details">
+                <span class="card-label">Dépenses</span>
+                <span class="card-value" id="monthlyExpenses">?</span>
+              </div>
+            </div>
+            <div class="summary-card">
+              <div class="card-icon purple"><i class="fas fa-credit-card"></i></div>
+              <div class="card-details">
+                <span class="card-label">Cartes actives</span>
+                <span class="card-value" id="activeCards">?</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <h3>Actions rapides</h3>
+            <div class="action-buttons">
+              <button class="action-btn" id="quickTransfer">
+                <i class="fas fa-paper-plane"></i>
+                <span>Transférer</span>
+              </button>
+              <button class="action-btn" id="quickTopup">
+                <i class="fas fa-plus-circle"></i>
+                <span>Recharger</span>
+              </button>
+              <button class="action-btn" id="quickRequest">
+                <i class="fas fa-hand-holding-usd"></i>
+                <span>Demander</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="recent-transactions">
+            <div class="section-header">
+              <h3>Transactions récentes</h3>
+            </div>
+            <div class="transactions-list" id="recentTransactionsList"></div>
+          </div>
+        </section>
+
+        <section id="transactions" class="dashboard-section">
+          <div class="section-header">
+            <h2>Toutes les transactions</h2>
+          </div>
+          <div class="transactions-list" id="allTransactionsList"></div>
+        </section>
+
+        <section id="cards" class="dashboard-section">
+          <div class="section-header">
+            <h2>Mes cartes</h2>
+            <button class="btn btn-secondary" id="addCardBtn">
+              <i class="fas fa-plus"></i> Ajouter une carte
+            </button>
+          </div>
+          <div class="cards-grid" id="cardsGrid"></div>
+        </section>
+
+        <section id="transfers" class="dashboard-section">
+          <div class="section-header">
+            <h2>Effectuer un transfert</h2>
+          </div>
+
+          <div class="transfer-container">
+            <form id="transferForm" class="transfer-form">
+
+              <div class="form-group">
+                <label for="beneficiary">
+                  <i class="fas fa-user"></i> Bénéficiaire
+                </label>
+                <select id="beneficiary" name="beneficiary" required>
+                  <option value="" disabled selected>Choisir un bénéficiaire</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="sourceCard">
+                  <i class="fas fa-credit-card"></i> Depuis ma carte
+                </label>
+                <select id="sourceCard" name="sourceCard" required>
+                  <option value="" disabled selected>Sélectionner une carte</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="amount">
+                  <i class="fas fa-euro-sign"></i> Montant
+                </label>
+                <div class="amount-input">
+                  <input type="number" id="amount" name="amount" min="1" step="0.01" placeholder="0.00" required>
+                  <span class="currency">MAD</span>
+                </div>
+              </div>
+
+              <div class="form-options">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="saveBeneficiary" name="saveBeneficiary">
+                  <label for="saveBeneficiary">Enregistrer ce bénéficiaire</label>
+                </div>
+                <div class="checkbox-group">
+                  <input type="checkbox" id="instantTransfer" name="instantTransfer">
+                  <label for="instantTransfer">Transfert instantané <span class="fee-badge">+13.4 MAD</span></label>
+                </div>
+              </div>
+
+              <div id="transferStatus"></div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelTransferBtn">Annuler</button>
+                <button type="button" class="btn btn-primary" id="submitTransferBtn">
+                  <i class="fas fa-paper-plane"></i> Transférer
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </section>
+
+        <section id="support" class="dashboard-section">
+          <div class="section-header">
+            <h2>Aide & Support</h2>
+          </div>
+          <p>Contactez-nous à support@ewallet.ma</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 E-Wallet. Tous droits réservés.</p>
+  </footer>
+
+  <script type="module" src="dashboard.js"></script>
+  <script type="module" src="transfers.js"></script>
+</body>
+</html>
