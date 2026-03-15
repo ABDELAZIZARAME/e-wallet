@@ -63,7 +63,7 @@ document.querySelectorAll(".sidebar-nav a").forEach(link => {
 
 const checkAmount = (amount, callback) => {
   if (!amount || isNaN(amount) || amount <= 0) {
-    showError("❌ Montant invalide. Veuillez entrer un montant positif.");
+    showError(" Montant invalide. Veuillez entrer un montant positif.");
     return;
   }
   callback(amount);
@@ -74,7 +74,7 @@ const checkSolde = (amount, currentUser, callback) => {
   setTimeout(() => {
     const userInDB = database.users.find(u => u.id === currentUser.id);
     if (userInDB.wallet.balance < amount) {
-      showError(`❌ Solde insuffisant. Votre solde : ${userInDB.wallet.balance} MAD`);
+      showError(` Solde insuffisant. Votre solde : ${userInDB.wallet.balance} MAD`);
       return;
     }
     callback(amount, userInDB);

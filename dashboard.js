@@ -9,7 +9,7 @@ const checkSession = (callback) => {
 const loadUserData = (currentUser, callback) => {
   setTimeout(() => {
     const userInDB = database.users.find(u => u.id === currentUser.id);
-    if (!userInDB) { console.error("❌ Utilisateur introuvable."); return; }
+    if (!userInDB) { console.error(" Utilisateur introuvable."); return; }
     callback(userInDB);
   }, 500);
 };
@@ -110,18 +110,29 @@ const renderAllTransactions = (user, callback) => {
   callback(user);
 };
 
+const navigateTo = (sectionId) => {
+  document.querySelectorAll(".dashboard-section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".sidebar-nav li").forEach(l => l.classList.remove("active"));
+  const section = document.getElementById(sectionId);
+  if (section) section.classList.add("active");
+  const link = document.querySelector(`.sidebar-nav a[href="#${sectionId}"]`);
+  if (link) link.parentElement.classList.add("active");
+};
+
 const initNavigation = (user, callback) => {
+  // Barre de navigation gauche
   document.querySelectorAll(".sidebar-nav a").forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      const target = link.getAttribute("href").substring(1);
-      document.querySelectorAll(".dashboard-section").forEach(s => s.classList.remove("active"));
-      document.querySelectorAll(".sidebar-nav li").forEach(l => l.classList.remove("active"));
-      const section = document.getElementById(target);
-      if (section) section.classList.add("active");
-      link.parentElement.classList.add("active");
+      navigateTo(link.getAttribute("href").substring(1));
     });
   });
+
+  
+  document.getElementById("quickTransfer")?.addEventListener("click", () => navigateTo("transfers"));
+
+  
+
   callback(user);
 };
 
